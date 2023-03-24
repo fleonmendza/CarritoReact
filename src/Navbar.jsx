@@ -1,4 +1,6 @@
 import React from 'react'
+import './styles/cardPokemon.css'
+
 
 export const Navbar = () => {
   return (
