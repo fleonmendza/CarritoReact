@@ -1,0 +1,22 @@
+.Carrito{
+    position: absolute;
+    top: 75px;
+    right: 20px;
+    overflow-y: scroll;
+    flex-direction: column;
+    width: 500px;
+    height: auto;
+    max-height: 400px;
+    border-radius: 15px;
+    background-color: #b0cf73;
+}
+
+#CarritoItem{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    background-color: #b0cf73;
+    width: 100%;
+    
+}

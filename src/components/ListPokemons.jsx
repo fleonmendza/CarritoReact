@@ -1,11 +1,20 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import './styles/cardPokemon.css'
+import "../styles/cardPokemon.css";
+import { Navbar } from "./Navbar";
+
 
 const baseURL = "https://pokeapi.co/api/v2/pokemon?offset=0&limit=30";
 
 export const ListPokemons = () => {
   const [pokeDatos, setPokeDatos] = useState([]);
+  const [pokemonesCarrito, setPokemonesCarrito] = useState([]);
+
+  const addCarrito = (pokemon) =>(!pokemonesCarrito.some((item)=>item.id===pokemon.id))? setPokemonesCarrito([...pokemonesCarrito, pokemon]) : setPokemonesCarrito(pokemonesCarrito.map((poke)=> (poke.id===pokemon.id)? {...poke, cantidad: poke.cantidad+1} : poke) );
+      
+  
+
+  console.log(pokemonesCarrito);
 
   const getPokemonData = async (url) => {
     try {
@@ -24,29 +33,31 @@ export const ListPokemons = () => {
     } catch (error) {}
   };
 
-  const getAllPokemons = async () => {
-    try {
-      const response = await axios.get(baseURL);
-      const pokemones = await Promise.all(
-        response.data.results.map(async (pokemon) => {
-          const pokemonData = await getPokemonData(pokemon.url);
-          return pokemonData;
-        })
-      );
-      setPokeDatos(pokemones);
-    } catch (error) {}
-  };
-
   useEffect(() => {
+    const getAllPokemons = async () => {
+      try {
+        const response = await axios.get(baseURL);
+        const pokemones = await Promise.all(
+          response.data.results.map(async (pokemon) => {
+            const pokemonData = await getPokemonData(pokemon.url);
+            return pokemonData;
+          })
+        );
+        setPokeDatos(pokemones);
+      } catch (error) {}
+    };
+
     getAllPokemons();
   }, []);
 
-  console.log(pokeDatos);
+  // console.log(pokeDatos);
   return (
     <>
-      {pokeDatos.map((pokemon, index) => (
+      <Navbar pokemonesCarrito={pokemonesCarrito}/>
+      <div className="container">
+      {pokeDatos.map((pokemon) => (
         // <h2 key={index}>{pokemon.name}</h2>
-        <div key={index} className="card">
+        <div key={pokemon.id} className="card">
           <h2>{pokemon.name.toUpperCase()}</h2>
           <img src={pokemon.img} alt={pokemon.name} />
           <p>
@@ -62,9 +73,8 @@ export const ListPokemons = () => {
             <strong>Precio:</strong> {pokemon.price} $
           </p>
           <button
-            id="btnAgregarCarrito"
-            // onclick="addPokemonList(objetos, ${pokemon.id});"
             className="btnAgregarCarrito"
+            onClick={() => addCarrito(pokemon)}
           >
             Agregar al Carrito
             <svg
@@ -79,6 +89,8 @@ export const ListPokemons = () => {
           </button>
         </div>
       ))}
+    </div>
     </>
+    
   );
 };
