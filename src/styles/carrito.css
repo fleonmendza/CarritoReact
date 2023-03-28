@@ -11,7 +11,7 @@
     background-color: #b0cf73;
 }
 
-#CarritoItem{
+.CarritoItem{
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -19,4 +19,24 @@
     background-color: #b0cf73;
     width: 100%;
     
+}
+
+.titleCarrito{
+    text-align: center;
+}
+
+
+.text{
+    width: 50px;
+    margin: 5px;
+}
+
+.containerButtons{
+    display: flex;
+    width: 80px;
+    justify-content: space-between;
+}
+
+.btnsCarrito{
+
 }

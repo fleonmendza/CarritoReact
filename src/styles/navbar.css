@@ -4,17 +4,23 @@ nav{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-
+    position: fixed;
+    width: 100%;
+    height: 20mvh;
    
 }
 
-button{
+.buttonOpenCar{
     margin-left: 30px;
     margin-right: 30px;
     background-color: white;
     border-radius: 8px;
     border: none;
     cursor: pointer;
+}
+
+.title{
+    margin-left: 15px;
 }
 
  .Compras{
